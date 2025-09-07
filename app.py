@@ -189,11 +189,10 @@ def build_chat_history():
     return history
 
 if "user_id" not in st.session_state:
-    if not os.path.exists("user_id.txt"):
-        with open("user_id.txt", "w") as f:
-            f.write(str(uuid.uuid4()))
-    with open("user_id.txt", "r") as f:
-        st.session_state["user_id"] = f.read()
+    # auto-generate first-time user
+    st.session_state["user_id"] = str(uuid.uuid4())
+
+sessions = get_sessions(st.session_state["user_id"])
 
 with st.sidebar:
     st.header("Chat Sessions")
@@ -217,6 +216,24 @@ with st.sidebar:
                     st.session_state.pop("current_session")
                     st.session_state.pop("message_history", None)
                 st.rerun()  # refresh UI after delete
+    
+    st.markdown("---")
+    st.subheader("User ID")
+
+    user_id_input = st.text_input("Enter your User ID", value=st.session_state.get("user_id", ""))
+
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        if st.button("Set User ID"):
+            if user_id_input.strip():
+                st.session_state["user_id"] = user_id_input.strip()
+                st.rerun()
+
+    with col2:
+        if st.button("Generate New ID"):
+            new_id = str(uuid.uuid4())
+            st.session_state["user_id"] = new_id
+            st.rerun()
 
 # Default to first session if none selected
 if "current_session" not in st.session_state:
@@ -224,7 +241,8 @@ if "current_session" not in st.session_state:
         st.session_state["current_session"] = sessions[0][0]
         st.session_state["message_history"] = load_history(sessions[0][0])
     else:
-        st.session_state["current_session"] = create_session("Chat 1")
+        new_session = create_session(st.session_state["user_id"], "Chat 1")
+        st.session_state["current_session"] = new_session
         st.session_state["message_history"] = []
 
 # Show messages
