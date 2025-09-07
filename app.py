@@ -220,9 +220,9 @@ with st.sidebar:
     st.markdown("---")
     st.subheader("User ID")
 
-    user_id_input = st.text_input("Enter your User ID")
+    user_id_input = st.text_input("Enter your User ID", value=st.session_state.get("user_id", ""))
 
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([1, 1])
     with col1:
         if st.button("Set User ID"):
             if user_id_input.strip():
@@ -234,7 +234,6 @@ with st.sidebar:
             new_id = str(uuid.uuid4())
             st.session_state["user_id"] = new_id
             st.rerun()
-            user_id_input = st.text_input("Enter your User ID", value=st.session_state.get("user_id", ""))
 
 # Default to first session if none selected
 if "current_session" not in st.session_state:
