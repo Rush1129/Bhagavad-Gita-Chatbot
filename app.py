@@ -194,6 +194,8 @@ if "user_id" not in st.session_state:
 
 sessions = get_sessions(st.session_state["user_id"])
 
+st.title('The GitaGPT')
+
 with st.sidebar:
     st.header("Chat Sessions")
     sessions = get_sessions(st.session_state["user_id"])
