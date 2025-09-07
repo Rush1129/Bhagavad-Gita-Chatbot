@@ -234,6 +234,10 @@ with st.sidebar:
             new_id = str(uuid.uuid4())
             st.session_state["user_id"] = new_id
             st.rerun()
+    
+    st.markdown(
+    "<p style='font-size: 12px; color: gray;'>💡 Save your User ID to access your chat history later.</p>",
+    unsafe_allow_html=True)
 
 # Default to first session if none selected
 if "current_session" not in st.session_state:
