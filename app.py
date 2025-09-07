@@ -4,11 +4,15 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
+
+__import__("pysqlite3")
+import sys,os
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
 from langchain_chroma import Chroma
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from dotenv import load_dotenv
-import sys, os
 import streamlit as st
 import sqlite3, json
 import asyncio

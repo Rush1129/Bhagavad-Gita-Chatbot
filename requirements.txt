@@ -6,3 +6,4 @@ langchain-groq
 chromadb
 python-dotenv
 streamlit
+pysqlite3-binary
