@@ -293,7 +293,12 @@ if user_input:
 
   current_session_id = st.session_state["current_session"]
   row = [s for s in sessions if s[0] == current_session_id][0]
-  _, current_name, _ = row  
+  
+  if row:  # session exists
+    _, current_name, _ = row
+    if current_name.startswith("Chat "):
+        title = generate_title(user_input, streamed_text)
+        update_session_name(current_session_id, title)
 
   if current_name.startswith("Chat "):
     title = generate_title(user_input, streamed_text)
