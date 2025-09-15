@@ -1,5 +1,6 @@
 from langchain.schema import Document
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -27,7 +28,8 @@ load_dotenv()
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+# embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
 vectorstore = Chroma(persist_directory='gita_vectordb', embedding_function=embeddings)
 
@@ -303,4 +305,3 @@ if user_input:
   if current_name.startswith("Chat "):
     title = generate_title(user_input, streamed_text)
     update_session_name(current_session_id, title)
-
