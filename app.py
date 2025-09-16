@@ -33,7 +33,7 @@ embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-
 
 vectorstore = Chroma(persist_directory='hf_gita_vectordb', embedding_function=embeddings)
 
-retriever = vectorstore.as_retriever(search_type='mmr',search_kwargs={'k':3, 'fetch_k':20, 'lambda_mult':0.5})
+retriever = vectorstore.as_retriever(search_type='mmr',search_kwargs={'k':2, 'fetch_k':20, 'lambda_mult':0.5})
 
 # model = ChatGoogleGenerativeAI(model='gemini-1.5-flash-latest')
 model = ChatGroq(model="llama-3.1-8b-instant")
@@ -62,9 +62,6 @@ Your rules:
 
 Context:
 {context}
-
-Question:
-{question}
 
 Answer as a knowledgeable guide of the Bhagavad Gita:"""),
     MessagesPlaceholder(variable_name='chat_history'),
