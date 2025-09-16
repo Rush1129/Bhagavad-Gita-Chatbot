@@ -1,6 +1,7 @@
 import json
 from langchain.schema import Document
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from dotenv import load_dotenv
 import sys
@@ -28,6 +29,7 @@ for chapter, verses in data.items():
 
         documents.append(Document(page_content=text, metadata=metadata))
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+# embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-vectorstore = Chroma.from_documents(documents=documents, embedding=embeddings, persist_directory='gita_vectordb')
+vectorstore = Chroma.from_documents(documents=documents, embedding=embeddings, persist_directory='hf_gita_vectordb')
