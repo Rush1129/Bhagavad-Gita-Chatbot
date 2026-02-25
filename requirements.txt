@@ -6,6 +6,6 @@ langchain-groq
 chromadb
 python-dotenv
 streamlit
-pysqlite3-binary
+pysqlite3
 sentence-transformers
 langchain-huggingface

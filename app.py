@@ -1,4 +1,4 @@
-from langchain.schema import Document
+from langchain_core.documents import Document
 # from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
@@ -12,7 +12,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
 from langchain_chroma import Chroma
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from langchain.retrievers.multi_query import MultiQueryRetriever
+from langchain_classic.retrievers.multi_query import MultiQueryRetriever
 from dotenv import load_dotenv
 import streamlit as st
 import sqlite3, json
